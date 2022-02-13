@@ -1,6 +1,11 @@
 from listaCuadritos import listaCuadritos
 class Patron:
-    def __init__(self, codigo, listaCulitos=listaCuadritos()):
+    def __init__(self, codigo):
         self.codigo = codigo
-        self.listaCuadritos = listaCulitos
-        #clavosssssssssssss
+        self.listaCuadritos = listaCuadritos
+    
+    def setLista(self, listaCuadritos):
+        self.listaCuadritos = listaCuadritos
+
+    def getLista(self):
+        return self.listaCuadritos

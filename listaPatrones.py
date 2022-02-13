@@ -13,8 +13,11 @@ class listaPatrones:
                 actual = actual.siguiente
             actual.siguiente = nodoPatron(Patron=Patron)
 
-    def recorrer(self):#clavosssx2
+    def recorrer(self):
         actual = self.cabeza
         while actual != None:
-            print(actual.Patron.listaCuadritos.recorrer())
+            print("------------------------------------------------")
+            listadelpatron = actual.Patron.getLista()
+            print(actual.Patron.codigo)
+            listadelpatron.recorrer()
             actual=actual.siguiente

@@ -16,5 +16,13 @@ class listaPisos:
     def recorrer(self):
         actual = self.cabeza
         while actual != None:
-            print(" nombre="+actual.Piso.nombre,"->")
+            listaa=actual.Piso.getLista()
+
+            print("nombre:",actual.Piso.nombre)
+            print("filas:",actual.Piso.filas)
+            print("columnas:",actual.Piso.columnas)
+            print("Precio volteo:",actual.Piso.volteo)
+            print("Precio intercambio:",actual.Piso.intercambio)
+            listaa.recorrer()
+            print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
             actual=actual.siguiente

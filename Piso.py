@@ -1,5 +1,6 @@
+from listaPatrones import listaPatrones
 class Piso:
-    def __init__(self, nombre, filas, columnas, volteo, intercambio, listaPatrones):
+    def __init__(self, nombre, filas, columnas, volteo, intercambio):
         self.nombre = nombre
         self.filas = filas
         self.columnas = columnas
@@ -7,3 +8,9 @@ class Piso:
         self.intercambio = intercambio
         self.listaPatrones = listaPatrones
         #clavosssssssssssss
+
+    def setLista(self, lista):
+        self.listaPatrones = lista
+
+    def getLista(self):
+        return self.listaPatrones

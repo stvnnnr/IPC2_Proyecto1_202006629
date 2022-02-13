@@ -1,3 +1,4 @@
+from re import X
 from xml.dom import minidom 
 from xml.dom.minidom import parse
 from listaCuadritos import listaCuadritos
@@ -50,41 +51,70 @@ def cargaarchivo():
         print("")
         raicita= documentt.documentElement
         nombreFabrica = raicita.nodeName
-        print(nombreFabrica)
-        print("-----------------------------------------------------------------")
+        listaPi = listaPisos()
+        # print(nombreFabrica)
+        # print("-----------------------------------------------------------------")
         todosLosPisos = raicita.getElementsByTagName("piso")
         for piso in todosLosPisos:
             if piso.hasAttribute("nombre"):
+                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 nombrePiso = piso.getAttribute("nombre")
-                print("nombre:", nombrePiso)
+                # print("nombre:", nombrePiso)
 
                 filaTotal = piso.getElementsByTagName("R")[0]
                 noFilas = filaTotal.childNodes[0].data
-                print("R:",noFilas)
+                # print("R:",noFilas)
 
                 columnaTotal = piso.getElementsByTagName("C")[0]
                 noColumnas = columnaTotal.childNodes[0].data
-                print("C:",noColumnas)
+                # print("C:",noColumnas)
 
                 volteosTotales = piso.getElementsByTagName("F")[0]
                 precioVolteo = volteosTotales.childNodes[0].data
-                print("F:",precioVolteo)
+                # print("F:",precioVolteo)
 
                 intercambiosTotales = piso.getElementsByTagName("S")[0]
                 precioIntercambio = intercambiosTotales.childNodes[0].data
-                print("S:",precioIntercambio)
+                # print("S:",precioIntercambio)
 
-                print("--------------patrones--------------")
+                # print("--------------patrones--------------")
+                lista_pa = listaPatrones()
 
                 patrones = piso.getElementsByTagName("patron")
+                pisoUno = Piso(nombrePiso,noFilas,noColumnas,precioVolteo,precioIntercambio)
 
                 for patroncito in patrones:
                     if patroncito.hasAttribute("codigo"):
                         codigoPatron = patroncito.getAttribute("codigo")
-                        print("patron:", codigoPatron)
+                        #print("patron:", codigoPatron)
 
                         patronColores = patroncito.childNodes[0].nodeValue.split("\n")[1]
-                        print("colores:",patronColores)
+                        # print("colores:",patronColores)
+                        x=1
+                        y=1
+                        z=0
+                        lista_c=listaCuadritos()
+                        for fila in range(int(noFilas)):
+                            for columna in range(int(noColumnas)):
+                                # print("x="+str(x),"y="+str(y), "color",patronColores[z])
+                                cuadritoUno=Cuadrito(str(x),str(y),patronColores[z])
+                                lista_c.insertarCuadrito(cuadritoUno)
+                                y=y+1
+                                z=z+1
+                            y=1
+                            x=x+1
+                        # lista_c.recorrer()
+                        # print("----------------------------------------------------")
+                        patronUno = Patron(codigoPatron)
+                        patronUno.setLista(lista_c)
+                        lista_pa.insertarPatron(patronUno)
+                        listax=patronUno.getLista()
+                        #listax.recorrer()
+                pisoUno.setLista(lista_pa)
+                listaPi.insertarPiso(pisoUno)
+        listaPi.recorrer()
+
+
 
 
 
