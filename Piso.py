@@ -7,7 +7,6 @@ class Piso:
         self.volteo = volteo
         self.intercambio = intercambio
         self.listaPatrones = listaPatrones
-        #clavosssssssssssss
 
     def setLista(self, lista):
         self.listaPatrones = lista
