@@ -1,6 +1,6 @@
 import sys
-from xml.dom import minidom 
-from xml.dom.minidom import parse
+from os import startfile, system
+from xml.dom import minidom
 from listaCuadritos import listaCuadritos
 from Cuadrito import Cuadrito
 from Patron import Patron
@@ -78,23 +78,45 @@ def cargaarchivo():
         print("ocurrio un error, vuelve a intentarlo")
         print("El error fue:", sys.exc_info()[0])
 
+def graficar():
+    Archivo = open('patron.dot', 'w')
+    cabeza = '''digraph structs {
+    node [shape=tripleoctagon]
+    struct3 [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="2" CELLPADDING="14">
+        <TR>
+            <TD COLSPAN="3">titulo supuestamente</TD>
+        </TR>
+        <TR>
+            <TD BGCOLOR="black"></TD> <TD></TD> <TD BGCOLOR="black"></TD>
+        </TR>
+        <TR>
+            <TD></TD> <TD BGCOLOR="black"></TD> <TD></TD>
+        </TR>
+        </TABLE>>];
+        }'''
+    Archivo.write(cabeza)
+    Archivo.close()
+    system('dot -Tpng patron.dot -o patron.png')
+    startfile('patron.png')  
 
 #Este while me ayuda a mantener activo el menu siempre
-while True:
-    try:
-        menuPrincipal()
-        select = int(input("Selecciona alguna opción:"))
-        print("\n")
-        if select == 1:
-            cargaarchivo()
-        elif select == 2:
-            listaPi.mantenerMenuPisos()
-        elif select == 3:
-            print("------          Gracias por usar mi programa :3           ------")
-            print("----------------------------------------------------------------")
-            break
-        else:
-            print("No existe esa opción")
-    except:
-        print("ocurrio un error, vuelve a intentarlo")
-        print("El error fue:", sys.exc_info()[0])
+# while True:
+#     try:
+#         menuPrincipal()
+#         select = int(input("Selecciona alguna opción:"))
+#         print("\n")
+#         if select == 1:
+#             cargaarchivo()
+#         elif select == 2:
+#             listaPi.mantenerMenuPisos()
+#         elif select == 3:
+#             print("------          Gracias por usar mi programa :3           ------")
+#             print("----------------------------------------------------------------")
+#             break
+#         else:
+#             print("No existe esa opción")
+#     except:
+#         print("ocurrio un error, vuelve a intentarlo")
+#         print("El error fue:", sys.exc_info()[0])
+graficar()
