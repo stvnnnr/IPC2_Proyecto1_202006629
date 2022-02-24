@@ -21,3 +21,13 @@ class listaPatrones:
             print(actual.Patron.codigo)
             listadelpatron.recorrer()
             actual=actual.siguiente
+    
+    def devuelveCabeza(self):
+        actual = self.cabeza
+        listaPatron = actual.Patron.getLista()
+        return listaPatron
+
+    def devuelveNombreCabeza(self):
+        actual = self.cabeza
+        NombrePatron = actual.Patron.codigo
+        return NombrePatron

@@ -18,3 +18,16 @@ class listaCuadritos:
         while actual != None:
             print(" fila="+actual.Cuadrito.x,"columna="+actual.Cuadrito.y,"color:"+actual.Cuadrito.valor,"->")
             actual=actual.siguiente
+
+    def pintar(self):
+        lista = "."
+        actual = self.cabeza
+        while actual != None:
+            if actual.Cuadrito.valor == "W":
+                linea = "<TD></TD>"
+            else:
+                linea = "<TD BGCOLOR=\"black\"></TD>"
+            lista = lista +","+ linea
+            actual=actual.siguiente
+        lista = lista.split(".,")[1]
+        return lista
