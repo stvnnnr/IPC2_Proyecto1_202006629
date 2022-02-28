@@ -69,11 +69,10 @@ class listaPisos:
                 select = int(input("Selecciona alguna opción:"))
                 print("\n")
                 if select == 1:
-                    print("mostrarGrafica")
-                    self.graficar(nombre)
+                    print("mostrandoPatrones")
+                    self.menudePatrones(nombre)
+                    #self.graficar(nombre)
                 elif select == 2:
-                    print("mostrarPatrones")
-                elif select == 3:
                     print("volviendo...")
                     break
                 else:
@@ -88,53 +87,16 @@ class listaPisos:
             if actual and actual.Piso.nombre == nombre:
                 print("")
                 print("|_______________________ MENU:",actual.Piso.nombre,"_______________________")
-                print("  1. Mostrar gráfica del patrón.")
-                print("  2. Selecciónar nuevo patrón.")
-                print("  3. Volver. ")
+                print("  1. Mostrar patrones.")
+                print("  2. volver.")
             actual = actual.siguiente
 
-    def graficar(self, nombre):
+    def menudePatrones(self, nombre):
         actual = self.cabeza
         while actual != None:
-            try:
-                if actual and actual.Piso.nombre == nombre:
-                    listaDepatrones = actual.Piso.getLista()
-                    listaConPatron = listaDepatrones.devuelveCabeza()
-                    codigoPatron = listaDepatrones.devuelveNombreCabeza()
-                    textoConComas = listaConPatron.pintar()
-                    textoSinComas = textoConComas.split(",")
-                    filas = actual.Piso.filas
-                    columnas = actual.Piso.columnas
-                    z=0#auxiliar
-
-                    Archivo = open('patron.dot', 'w')
-                    cabeza = '''digraph structs {
-                                node [shape=tripleoctagon]
-                                struct3 [label=<
-                                    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="2" CELLPADDING="14">
-                                    <TR>
-                                    <TD COLSPAN="4">'''
-                    Archivo.write(cabeza)
-                    Archivo.write(codigoPatron)
-                    luegoDelName = '''</TD>
-                                </TR>'''
-                    Archivo.write(luegoDelName)
-
-                    for fila in range(int(filas)):
-                        inicioFila = "<TR>"
-                        Archivo.write(inicioFila)
-                        for columna in range(int(columnas)):
-                            Archivo.write(textoSinComas[z])
-                            z=z+1
-                        finFila = "</TR>"
-                        Archivo.write(finFila)
-                    finDot = '''</TABLE>>];
-                            }'''
-                    Archivo.write(finDot)
-                    Archivo.close()
-                    system('dot -Tpng patron.dot -o patron.png')
-                    startfile('patron.png')
-            except:
-                print("ocurrio un error, vuelve a intentarlo")
-                print("El error fue:", sys.exc_info()[0])
+            if actual and actual.Piso.nombre == nombre:
+                filas = actual.Piso.filas
+                columnas = actual.Piso.columnas
+                listaP = actual.Piso.getLista()
+                listaP.mantenerMenuPatrones(filas, columnas)
             actual = actual.siguiente

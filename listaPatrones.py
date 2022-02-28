@@ -1,4 +1,6 @@
 from nodoPatron import nodoPatron
+import sys
+from os import startfile, system
 
 class listaPatrones:
     def __init__(self):
@@ -21,13 +23,114 @@ class listaPatrones:
             print(actual.Patron.codigo)
             listadelpatron.recorrer()
             actual=actual.siguiente
-    
-    def devuelveCabeza(self):
-        actual = self.cabeza
-        listaPatron = actual.Patron.getLista()
-        return listaPatron
 
-    def devuelveNombreCabeza(self):
+    def menuPatrones(self):
         actual = self.cabeza
-        NombrePatron = actual.Patron.codigo
-        return NombrePatron
+        print("")
+        print("")
+        print("")
+        print("|                          MENU Patrones                          |")
+        #acá iran todos los patrones del piso elegido
+        n=1
+        while actual != None:
+            print("  ",n,".",actual.Patron.codigo,".                     ")
+            n = n+1
+            actual=actual.siguiente
+        print("   0 . Volver .")
+
+
+    def mantenerPatronElegido(self, nombre, filas, columnas):
+        while (True):
+            try:
+                self.menuPatronElegido(nombre)
+                select = int(input("Selecciona alguna opción:"))
+                print("\n")
+                if select == 1:
+                    print("mostrarGrafica")
+                    self.graficar(nombre, filas, columnas)
+                    #self.graficar(nombre)
+                elif select == 2:
+                    print("mostrarPatrones")
+                elif select == 3:
+                    print("volviendo...")
+                    break
+                else:
+                    print("No existe esa opción")
+            except:
+                print("ocurrio un error, vuelve a intentarlo")
+                print("El error fue:", sys.exc_info()[0])
+
+
+    def mantenerMenuPatrones(self, filas, columnas):
+        correcto = False
+        while (not correcto):
+            self.menuPatrones()
+            actual = self.cabeza
+            select = int(input("selecciona alguna opción:"))
+            print("\n")
+            n = 1
+            while actual != None:
+                if select == 0:
+                    correcto = True
+                    break
+                elif select == n:
+                    self.mantenerPatronElegido(actual.Patron.codigo, filas, columnas)
+                    break
+                n = n+1
+                actual=actual.siguiente
+            if select != n and select !=0:
+                print("esa opcion no existe")
+
+    def menuPatronElegido(self, nombre):
+        actual = self.cabeza
+        while actual != None:
+            if actual and actual.Patron.codigo == nombre:
+                print("")
+                print("|_______________________ MENU:",actual.Patron.codigo,"_______________________")
+                print("  1. Mostrar gráfica del patrón.")
+                print("  2. Selecciónar nuevo patrón.")
+                print("  3. Volver. ")
+            actual = actual.siguiente
+
+
+    def graficar(self, nombre, filas, columnas):
+        actual = self.cabeza
+        while actual != None:
+            try:
+                if actual and actual.Patron.codigo == nombre:
+                    listaConPatron = actual.Patron.getLista()
+                    textoConComas = listaConPatron.pintar()
+                    textoSinComas = textoConComas.split(",")
+                    z=0#auxiliar
+
+                    Archivo = open('patron.dot', 'w')
+                    cabeza = '''digraph structs {
+                                node [shape=tripleoctagon]
+                                struct3 [label=<
+                                    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="2" CELLPADDING="14">
+                                    <TR>
+                                    <TD COLSPAN="4">'''
+                    Archivo.write(cabeza)
+                    Archivo.write(nombre)
+                    luegoDelName = '''</TD>
+                                </TR>'''
+                    Archivo.write(luegoDelName)
+
+                    for fila in range(int(filas)):
+                        inicioFila = "<TR>"
+                        Archivo.write(inicioFila)
+                        for columna in range(int(columnas)):
+                            Archivo.write(textoSinComas[z])
+                            z=z+1
+                        finFila = "</TR>"
+                        Archivo.write(finFila)
+                    finDot = '''</TABLE>>];
+                            }'''
+                    Archivo.write(finDot)
+                    Archivo.close()
+                    system('dot -Tpng patron.dot -o patron.png')
+                    startfile('patron.png')
+            except:
+                print("ocurrio un error, vuelve a intentarlo")
+                print("El error fue:", sys.exc_info()[0])
+            actual = actual.siguiente
