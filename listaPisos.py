@@ -97,6 +97,8 @@ class listaPisos:
             if actual and actual.Piso.nombre == nombre:
                 filas = actual.Piso.filas
                 columnas = actual.Piso.columnas
+                cambio = actual.Piso.intercambio
+                volteo = actual.Piso.volteo
                 listaP = actual.Piso.getLista()
-                listaP.mantenerMenuPatrones(filas, columnas)
+                listaP.mantenerMenuPatrones(filas, columnas, cambio, volteo)
             actual = actual.siguiente

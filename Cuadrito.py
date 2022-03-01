@@ -3,3 +3,6 @@ class Cuadrito:
         self.x = x
         self.y = y
         self.valor = valor
+    
+    def setCuadrito(self, cuadrito):
+        self.valor = cuadrito
