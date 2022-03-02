@@ -55,6 +55,7 @@ def cargaarchivo():
                         codigoPatron = patroncito.getAttribute("codigo")#codigo del patron
 
                         patronColores = patroncito.childNodes[0].nodeValue.split("\n")[1]#saco todo el patron
+                        patronColores = patronColores.strip()
                         x=1#auxiliar
                         y=1#auxiliar
                         z=0#auxiliar
@@ -72,6 +73,7 @@ def cargaarchivo():
                         lista_pa.insertarPatron(patronUno)#meto patron a la lista de patrones
                 pisoUno.setLista(lista_pa)#meto lista de patrones asu piso
                 listaPi.insertarPiso(pisoUno)#meto piso a lista de pisos
+                listaPi.recorrer()
         #listaPi.recorrer()
         print("El archivo se cargo con exito ✓")
     except:

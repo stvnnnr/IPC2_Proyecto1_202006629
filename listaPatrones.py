@@ -152,35 +152,35 @@ class listaPatrones:
         columnas = columnas.strip()
         cambio = cambio.strip()
         volteo = volteo.strip()
-        # textoUno = listaUno.sacarTexto()
-        # print("patrones iniciales")
-        # print(textoUno)
-        # print(textoDos)
         valorUno = listaUno.cambiarDos(textoDos, filas, columnas, cambio, volteo)
         print("Transformación realizada")
         instrucciones = listaUno.devolverInfo()
-        instrucciones = instrucciones+"valor de la transformación fue:"+str(valorUno)+"\n"
+        instrucciones = instrucciones+"valor de la transformación fue: Q."+str(valorUno)+".00"+"\n"
         self.manMenuImpresion(instrucciones,namePatron)
 
 
     def mMenuPatrones(self):
         correcto = False
         while (not correcto):
-            self.menuPatrones()
-            actual = self.cabeza
-            select = int(input("Por cual lo quieres cambiar?  "))
-            print("\n")
-            n = 1
-            while actual != None:
-                if select == 0:
-                    correcto = True
-                    break
-                elif select == n:
-                    return actual.Patron.codigo
-                n = n+1
-                actual=actual.siguiente
-            if select != n and select !=0:
-                print("esa opcion no existe")
+            try:
+                self.menuPatrones()
+                actual = self.cabeza
+                select = int(input("Por cual lo quieres cambiar?  "))
+                print("\n")
+                n = 1
+                while actual != None:
+                    if select == 0:
+                        correcto = True
+                        break
+                    elif select == n:
+                        return actual.Patron.codigo
+                    n = n+1
+                    actual=actual.siguiente
+                if select != n and select !=0:
+                    print("esa opcion no existe")
+            except:
+                print("ocurrio un error, vuelve a intentarlo")
+                print("El error fue:", sys.exc_info()[0])
 
     def menuImpresion(self):
         print("")
