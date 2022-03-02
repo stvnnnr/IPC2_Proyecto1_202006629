@@ -1,5 +1,6 @@
 from nodoPatron import nodoPatron
 import sys
+import os
 from os import startfile, system
 
 class listaPatrones:
@@ -63,10 +64,10 @@ class listaPatrones:
         while actual != None:
             if actual and actual.Patron.codigo == nombre:
                 print("")
-                print("|_______________________ MENU:",actual.Patron.codigo,"_______________________")
+                print("_______________________ MENU:",actual.Patron.codigo,"_______________________")
                 print("  1. Mostrar gráfica del patrón.")
                 print("  2. Cambiar patrón.")
-                print("  3. Volver. ")
+                print("  0. Volver. ")
             actual = actual.siguiente
 
     def mantenerPatronElegido(self, nombre, filas, columnas, cambio, volteo):
@@ -76,13 +77,11 @@ class listaPatrones:
                 select = int(input("Selecciona alguna opción:"))
                 print("\n")
                 if select == 1:
-                    print("mostrarGrafica")
+                    print("Gráfica realizada")
                     self.graficar(nombre, filas, columnas)
-                    #self.graficar(nombre)
                 elif select == 2:
                     self.cambiarPatron(nombre, filas, columnas, cambio, volteo)
-                    print("mostrarPatrones")
-                elif select == 3:
+                elif select == 0:
                     print("volviendo...")
                     break
                 else:
@@ -147,26 +146,22 @@ class listaPatrones:
         while actual != None:
             if actual and actual.Patron.codigo == patronUno:
                 listaUno = actual.Patron.getLista()
+                namePatron = actual.Patron.codigo
             actual = actual.siguiente
         filas = filas.strip()
         columnas = columnas.strip()
         cambio = cambio.strip()
         volteo = volteo.strip()
-        textoUno = listaUno.sacarTexto()
-        print("patrones iniciales")
-        print(textoUno)
-        print(textoDos)
-        valorUno = listaUno.cambiarDos(textoDos, filas, columnas, cambio, volteo)
-        # valorDos = listaUnoCopia.cambiarDos(textoDos, filas, columnas, cambio, volteo)
-        #valorDos = listaUno.cambiarUno(textoDos, filas, columnas, cambio, volteo)
-        print("valor de la transformación metodo 1:",valorUno)
-        # print("valor de la transformación metodo 2:",valorDos)
-        
-        #print("valor de la transformación metodo 2:",valorDos)
-                
-
+        # textoUno = listaUno.sacarTexto()
+        # print("patrones iniciales")
         # print(textoUno)
         # print(textoDos)
+        valorUno = listaUno.cambiarDos(textoDos, filas, columnas, cambio, volteo)
+        print("Transformación realizada")
+        instrucciones = listaUno.devolverInfo()
+        instrucciones = instrucciones+"valor de la transformación fue:"+str(valorUno)+"\n"
+        self.manMenuImpresion(instrucciones,namePatron)
+
 
     def mMenuPatrones(self):
         correcto = False
@@ -186,3 +181,38 @@ class listaPatrones:
                 actual=actual.siguiente
             if select != n and select !=0:
                 print("esa opcion no existe")
+
+    def menuImpresion(self):
+        print("")
+        print("")
+        print("")
+        print("MENU Impresión")
+        print("   1 . Consola .")
+        print("   2 . Archivo de texto .")
+    
+    def manMenuImpresion(self, variable, namePatron):
+        while True:
+            try:
+                self.menuImpresion()
+                select = int(input("En donde deseas ver tus instrucciónes:"))
+                print("\n")
+                if select == 1:
+                    print(variable)
+                    print("\n")
+                    break
+                elif select == 2:
+                    self.generarTxt(variable,namePatron)
+                    print("Se genero archivo txt")
+                    break
+                else:
+                    print("No existe esa opción")
+            except:
+                print("ocurrio un error, vuelve a intentarlo")
+                print("El error fue:", sys.exc_info()[0])
+
+    def generarTxt(self, variable, namePatron):
+        nombreArchivo=namePatron+".txt"
+        file = open(nombreArchivo, "w")
+        file.write(variable + os.linesep)
+        file.close()
+        startfile(nombreArchivo)

@@ -19,7 +19,7 @@ def menuPrincipal():
     print("|                                                              |")
     print("|  1. Carga de archivo.                                        |")
     print("|  2. Pisos cargados.                                          |")
-    print("|  3. Salir.                                                   |")
+    print("|  0. Salir.                                                   |")
     print("----------------------------------------------------------------")
 
 #metodo cargar archivo
@@ -80,7 +80,7 @@ def cargaarchivo():
 
 #Este while me ayuda a mantener activo el menu siempre
 while True:
-    # try:
+    try:
         menuPrincipal()
         select = int(input("Selecciona alguna opción:"))
         print("\n")
@@ -88,12 +88,12 @@ while True:
             cargaarchivo()
         elif select == 2:
             listaPi.mantenerMenuPisos()
-        elif select == 3:
+        elif select == 0:
             print("------          Gracias por usar mi programa :3           ------")
             print("----------------------------------------------------------------")
             break
         else:
             print("No existe esa opción")
-    # except:
-    #     print("ocurrio un error, vuelve a intentarlo")
-    #     print("El error fue:", sys.exc_info()[0])
+    except:
+        print("ocurrio un error, vuelve a intentarlo")
+        print("El error fue:", sys.exc_info()[0])

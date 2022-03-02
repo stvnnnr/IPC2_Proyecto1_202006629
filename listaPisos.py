@@ -69,10 +69,9 @@ class listaPisos:
                 select = int(input("Selecciona alguna opción:"))
                 print("\n")
                 if select == 1:
-                    print("mostrandoPatrones")
                     self.menudePatrones(nombre)
                     #self.graficar(nombre)
-                elif select == 2:
+                elif select == 0:
                     print("volviendo...")
                     break
                 else:
@@ -86,9 +85,9 @@ class listaPisos:
         while actual != None:
             if actual and actual.Piso.nombre == nombre:
                 print("")
-                print("|_______________________ MENU:",actual.Piso.nombre,"_______________________")
+                print("_______________________ MENU:",actual.Piso.nombre,"_______________________")
                 print("  1. Mostrar patrones.")
-                print("  2. volver.")
+                print("  0. volver.")
             actual = actual.siguiente
 
     def menudePatrones(self, nombre):

@@ -1,4 +1,5 @@
 from nodoCuadrito import nodoCuadrito
+global letras
 
 class listaCuadritos:
     def __init__(self):
@@ -40,135 +41,51 @@ class listaCuadritos:
             actual=actual.siguiente
         return textoPlano
 
-    def cambiarUno(self, textoDos, filas, columnas, cambio, volteo):
-        actual = self.cabeza
-        valor=0
-        index = 0
-        mov = 0
-
-        while actual != None:
-            actualTemp = actual
-            for i in range(int(columnas)):
-                if actualTemp.siguiente != None:
-                    actualTemp = actualTemp.siguiente #buscamos pieza de abajo
-            if textoDos[index]==actual.Cuadrito.valor:#si es igual lo compueba
-                print("pieza",actual.Cuadrito.x,actual.Cuadrito.y,"igual")
-            elif actual.siguiente == None:#Es diferente y revisa si siguiente no es None
-                actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                mov = mov+1
-                print("movimiento",mov)
-                print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
-                valor = valor + int(volteo)
-            elif actual.siguiente.Cuadrito.valor == textoDos[index+1]:
-                actualAux = actual
-                for i in range(int(columnas)):
-                    actualAux = actualAux.siguiente#buscamos pieza de abajo
-                if actualAux == None:
-                    actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
-                    valor = valor + int(volteo)
-                elif actualAux.Cuadrito.valor == textoDos[index+int(columnas)]:
-                    actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
-                    valor = valor + int(volteo)
-                elif actualAux.Cuadrito.valor != actual.Cuadrito.valor:
-                    actual.Cuadrito.setCuadrito(textoDos[index])#el de abajo es diferente tambien y lo cambiamos
-                    actualNueva = actual
-                    xNueva = actualAux.Cuadrito.x
-                    yNueva = actualAux.Cuadrito.y
-                    actual = self.cabeza
-                    while actual != None:
-                        if actual and actual.Cuadrito.x == xNueva:
-                            if actual and actual.Cuadrito.y == yNueva:
-                                actual.Cuadrito.setCuadrito(textoDos[index+int(columnas)])
-                        actual = actual.siguiente
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("Cambiamos la pieza",actualNueva.Cuadrito.x,actualNueva.Cuadrito.y,"por la pieza",actualAux.Cuadrito.x,actualAux.Cuadrito.y)
-                    valor = valor + int(cambio)
-            elif actualTemp.Cuadrito.valor == textoDos[index+int(columnas)]:
-                actual.Cuadrito.setCuadrito(textoDos[index])
-                actual.siguiente.Cuadrito.setCuadrito(textoDos[index+1])
-                mov = mov+1
-                print("movimiento",mov)
-                print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actual.siguiente.Cuadrito.x,actual.siguiente.Cuadrito.y)
-                valor = valor + int(cambio)
-            elif  actualTemp.Cuadrito.valor != actual.Cuadrito.valor or actual.Cuadrito.valor != actual.siguiente.Cuadrito.valor:
-                if actualTemp.Cuadrito.valor != actual.Cuadrito.valor:
-                    actual.Cuadrito.setCuadrito(textoDos[index])#el de abajo es diferente tambien y lo cambiamos
-                    actualNueva = actual
-                    xNueva = actualTemp.Cuadrito.x
-                    yNueva = actualTemp.Cuadrito.y
-                    actual = self.cabeza
-                    while actual != None:
-                        if actual and actual.Cuadrito.x == xNueva:
-                            if actual and actual.Cuadrito.y == yNueva:
-                                actual.Cuadrito.setCuadrito(textoDos[index+int(columnas)])
-                        actual = actual.siguiente
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("Cambiamos la pieza",actualNueva.Cuadrito.x,actualNueva.Cuadrito.y,"por la pieza",actualTemp.Cuadrito.x,actualTemp.Cuadrito.y)
-                    valor = valor + int(cambio)
-                elif actual.Cuadrito.valor != actual.siguiente.Cuadrito.valor:
-                    actual.Cuadrito.setCuadrito(textoDos[index])
-                    actual.siguiente.Cuadrito.setCuadrito(textoDos[index+1])
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actual.siguiente.Cuadrito.x,actual.siguiente.Cuadrito.y)
-                    valor = valor + int(cambio)
-            print(self.sacarTexto())
-            print(textoDos)
-            index = index+1
-            print(actual.Cuadrito.x, actual.Cuadrito.y)
-            actual = actual.siguiente
-        return(valor)
-
     def cambiarDos(self, textoDos, filas, columnas, cambio, volteo):
+        global letras
+        letras = ""
         actual = self.cabeza
         valor=0
         index = 0
         mov = 0
 
         while actual != None:
+            letras = letras + "comprobando pieza no. "+ str(index+1) + " que está en la posición: " + str(actual.Cuadrito.x)+","+str(actual.Cuadrito.y)+"\n"
             actualTemp = actual
             for i in range(int(columnas)):
                 if actualTemp.siguiente != None:
                     actualTemp = actualTemp.siguiente #buscamos pieza de abajo
 
             if textoDos[index]==actual.Cuadrito.valor:#si es igual lo compueba
-                print("1")
-                print("pieza",actual.Cuadrito.x,actual.Cuadrito.y,"igual")
+                letras = letras + "Pieza no. "+str(index+1)+ " es igual"+"\n"
+                # print("pieza",actual.Cuadrito.x,actual.Cuadrito.y,"igual")
             elif actual.siguiente == None:#Es diferente y revisa si siguiente no es None
-                print("2")
+                letras = letras + "Pieza no." + str(index+1)+" es diferente y es la ultima, la volteamos"+"\n"
                 actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                mov = mov+1
-                print("movimiento",mov)
-                print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
+                # mov = mov+1
+                # print("movimiento",mov)
+                # print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
                 valor = valor + int(volteo)
             elif actual.siguiente.Cuadrito.valor == textoDos[index+1]:
                 actualAux = actual
                 for i in range(int(columnas)):
                     actualAux = actualAux.siguiente#buscamos pieza de abajo
                 if actualAux == None:
-                    print("3")
+                    letras = letras + "Pieza no. "+str(index+1)+" es diferente y no se puede intercambiar, la volteamos"+"\n"
                     actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
+                    # mov = mov+1
+                    # print("movimiento",mov)
+                    # print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
                     valor = valor + int(volteo)
                 elif actualAux.Cuadrito.valor == textoDos[index+int(columnas)]:
-                    print("4")
+                    letras = letras + "Pieza no. "+str(index+1)+" es diferente y no se puede intercambiar, la volteamos"+"\n"
                     actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
+                    # mov = mov+1
+                    # print("movimiento",mov)
+                    # print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
                     valor = valor + int(volteo)
                 elif actualAux.Cuadrito.valor != actual.Cuadrito.valor:
-                    print("5")
+                    letras = letras + "Pieza no. "+str(index+1)+" es diferente y se puede intercambiar por la pieza "+ str(index+int(columnas)+1)+"\n"
                     actual.Cuadrito.setCuadrito(textoDos[index])#el de abajo es diferente tambien y lo cambiamos
                     actualNueva = actual
                     xNueva = actualAux.Cuadrito.x
@@ -180,29 +97,32 @@ class listaCuadritos:
                                 actual.Cuadrito.setCuadrito(textoDos[index+int(columnas)])
                         actual = actual.siguiente
                     actual = actualNueva
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("Cambiamos la pieza",actualNueva.Cuadrito.x,actualNueva.Cuadrito.y,"por la pieza",actualAux.Cuadrito.x,actualAux.Cuadrito.y)
+                    letras = letras + "Intercambiamos la pieza: "+actualNueva.Cuadrito.x+","+actualNueva.Cuadrito.y+" , por la pieza: "+actualAux.Cuadrito.x+","+actualAux.Cuadrito.y+"\n"
+                    # mov = mov+1
+                    # print("movimiento",mov)
+                    # print("Cambiamos la pieza",actualNueva.Cuadrito.x,actualNueva.Cuadrito.y,"por la pieza",actualAux.Cuadrito.x,actualAux.Cuadrito.y)
                     valor = valor + int(cambio)
             elif actualTemp.Cuadrito.valor == textoDos[index+int(columnas)]:
-                print("6")
+                letras = letras + "Pieza no. "+str(index+1)+" es diferente y se puede intercambiar por la pieza "+str(index+2)+"\n"
                 actual.Cuadrito.setCuadrito(textoDos[index])
                 actual.siguiente.Cuadrito.setCuadrito(textoDos[index+1])
-                mov = mov+1
-                print("movimiento",mov)
-                print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actual.siguiente.Cuadrito.x,actual.siguiente.Cuadrito.y)
+                letras = letras + "Intercambiamos la pieza: "+actual.Cuadrito.x+","+actual.Cuadrito.y+" , por la pieza: "+actual.siguiente.Cuadrito.x+","+actual.siguiente.Cuadrito.y+"\n"
+                # mov = mov+1
+                # print("movimiento",mov)
+                # print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actual.siguiente.Cuadrito.x,actual.siguiente.Cuadrito.y)
                 valor = valor + int(cambio)
             elif actual.Cuadrito.valor != actual.siguiente.Cuadrito.valor or actualTemp.Cuadrito.valor != actual.Cuadrito.valor:
                 if actual.Cuadrito.valor != actual.siguiente.Cuadrito.valor:
-                    print("7")
+                    letras = letras + "Pieza no. "+str(index+1)+" es diferente y se puede intercambiar por la pieza "+str(index+2)+"\n"
                     actual.Cuadrito.setCuadrito(textoDos[index])
                     actual.siguiente.Cuadrito.setCuadrito(textoDos[index+1])
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actual.siguiente.Cuadrito.x,actual.siguiente.Cuadrito.y)
+                    letras = letras + "Intercambiamos la pieza: "+actualNueva.Cuadrito.x+","+actualNueva.Cuadrito.y+" , por la pieza: "+actual.siguiente.Cuadrito.x+","+actual.siguiente.Cuadrito.y+"\n"
+                    # mov = mov+1
+                    # print("movimiento",mov)
+                    # print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actual.siguiente.Cuadrito.x,actual.siguiente.Cuadrito.y)
                     valor = valor + int(cambio)
                 elif actualTemp.Cuadrito.valor != actual.Cuadrito.valor:
-                    print("8")
+                    letras = letras + "Pieza no. "+str(index+1)+" es diferente y se puede intercambiar por la pieza "+str(index+int(columnas)+1)+"\n"
                     actual.Cuadrito.setCuadrito(textoDos[index])#el de abajo es diferente tambien y lo cambiamos
                     actualNueva = actual
                     xNueva = actualTemp.Cuadrito.x
@@ -214,19 +134,28 @@ class listaCuadritos:
                                 actual.Cuadrito.setCuadrito(textoDos[index+int(columnas)])
                         actual = actual.siguiente
                     actual = actualNueva
-                    mov = mov+1
-                    print("movimiento",mov)
-                    print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actualTemp.Cuadrito.x,actualTemp.Cuadrito.y)
+                    # mov = mov+1
+                    # print("movimiento",mov)
+                    # print("Cambiamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y,"por la pieza",actualTemp.Cuadrito.x,actualTemp.Cuadrito.y)
+                    letras = letras + "Intercambiamos la pieza: "+actualNueva.Cuadrito.x+","+actualNueva.Cuadrito.y+" , por la pieza: "+actualTemp.Cuadrito.x+","+actualTemp.Cuadrito.y+"\n"
                     valor = valor + int(cambio)
             else:
                 actual.Cuadrito.setCuadrito(textoDos[index])#si es none, es porque es el ultimo y hace volteo
-                mov = mov+1
-                print("movimiento",mov)
-                print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
+                letras = letras + "Pieza no. "+str(index+1)+" es diferente y no se puede intercambiar, la volteamos"+"\n"
+                # mov = mov+1
+                # print("movimiento",mov)
+                # print("volteamos la pieza",actual.Cuadrito.x,actual.Cuadrito.y)
                 valor = valor + int(volteo)
-            print("Patrones luego de revisar el elemento,",index)
-            print(self.sacarTexto())
-            print(textoDos)
+            # print("Patrones luego de revisar el elemento,",index)
+            # print(self.sacarTexto())
+            # print(textoDos)
+            letras = letras + "Pieza no. "+str(index+1)+" revisada"+"\n"
+            letras = letras + "\n"
             index = index+1
             actual=actual.siguiente
+        letras = letras + "\n"
         return(valor)
+
+    def devolverInfo(self):
+        global letras
+        return letras
