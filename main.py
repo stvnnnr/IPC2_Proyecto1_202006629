@@ -25,6 +25,7 @@ def menuPrincipal():
 #metodo cargar archivo
 def cargaarchivo():
     try:
+        patronesMalos = ""
         global listaPi
         global nombreFabrica
         documentt = minidom.parse(str(input("Ingrese la ruta de su archivo: --> ")))
@@ -72,10 +73,13 @@ def cargaarchivo():
                         patronUno.setLista(lista_c)#meto la lista de azulejos a su patron
                         lista_pa.insertarPatron(patronUno)#meto patron a la lista de patrones
                 pisoUno.setLista(lista_pa)#meto lista de patrones asu piso
-                listaPi.insertarPiso(pisoUno)#meto piso a lista de pisos
-                listaPi.recorrer()
+                if int(noFilas)>0 and int(noColumnas)>0 and int(precioVolteo)>0 and int(precioIntercambio)>0:
+                    listaPi.insertarPiso(pisoUno)#meto piso a lista de pisos
+                else:
+                    print("El piso: "+nombrePiso+ " tiene algún valor negativo en sus datos, no podemos agregarlo a la lista ❌\n")
+                #listaPi.recorrer()
         #listaPi.recorrer()
-        print("El archivo se cargo con exito ✓")
+        print("El archivo de la fabrica: "+nombreFabrica+ "se cargo con exito ✓")
     except:
         print("ocurrio un error, vuelve a intentarlo")
         print("El error fue:", sys.exc_info()[0])
