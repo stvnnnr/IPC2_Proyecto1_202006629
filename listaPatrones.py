@@ -1,6 +1,7 @@
 from nodoPatron import nodoPatron
 import sys
 import os
+import time
 from os import startfile, system
 
 class listaPatrones:
@@ -91,6 +92,7 @@ class listaPatrones:
                 print("El error fue:", sys.exc_info()[0])
 
     def graficar(self, nombre, filas, columnas):
+        hora=time.ctime()
         actual = self.cabeza
         while actual != None:
             try:
@@ -99,7 +101,6 @@ class listaPatrones:
                     textoConComas = listaConPatron.pintar()
                     textoSinComas = textoConComas.split(",")
                     z=0#auxiliar
-
                     Archivo = open('patron.dot', 'w')
                     cabeza = '''digraph structs {
                                 node [shape=tripleoctagon]
@@ -158,6 +159,22 @@ class listaPatrones:
         instrucciones = instrucciones+"valor de la transformación fue: Q."+str(valorUno)+".00"+"\n"
         self.manMenuImpresion(instrucciones,namePatron)
 
+    def ordenarPatrones(self):
+        n = 0
+        actualito = self.cabeza
+        while actualito.siguiente:
+            actualito = actualito.siguiente
+            n = n+1
+        
+        for i in range(n):
+            actualnova=self.cabeza
+            for j in range(0, n+1):
+                if actualnova.siguiente!=None and actualnova.Patron.codigo > actualnova.siguiente.Patron.codigo:
+                    nodoJ = actualnova.Patron
+                    nodoJ_2 = actualnova.siguiente.Patron
+                    actualnova.Patron = nodoJ_2
+                    actualnova.siguiente.Patron = nodoJ
+                actualnova = actualnova.siguiente
 
     def mMenuPatrones(self):
         correcto = False

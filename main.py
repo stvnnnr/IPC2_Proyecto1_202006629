@@ -72,12 +72,14 @@ def cargaarchivo():
                         patronUno = Patron(codigoPatron)#creo patron
                         patronUno.setLista(lista_c)#meto la lista de azulejos a su patron
                         lista_pa.insertarPatron(patronUno)#meto patron a la lista de patrones
+                        lista_pa.ordenarPatrones()
                 pisoUno.setLista(lista_pa)#meto lista de patrones asu piso
                 if int(noFilas)>0 and int(noColumnas)>0 and int(precioVolteo)>0 and int(precioIntercambio)>0:
                     listaPi.insertarPiso(pisoUno)#meto piso a lista de pisos
                 else:
                     print("El piso: "+nombrePiso+ " tiene algún valor negativo en sus datos, no podemos agregarlo a la lista ❌\n")
                 #listaPi.recorrer()
+        listaPi.ordenarPisos()
         #listaPi.recorrer()
         print("El archivo de la fabrica: "+nombreFabrica+ "se cargo con exito ✓")
     except:

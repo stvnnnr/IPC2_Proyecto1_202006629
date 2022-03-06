@@ -1,5 +1,6 @@
 import sys
 from os import startfile, system
+from tkinter import N
 from nodoPiso import nodoPiso
 
 class listaPisos:
@@ -28,6 +29,23 @@ class listaPisos:
             print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
             actual=actual.siguiente
 
+    def ordenarPisos(self):
+        n = 0
+        actualito = self.cabeza
+        while actualito.siguiente:
+            actualito = actualito.siguiente
+            n = n+1
+        
+        for i in range(n):
+            actualnova=self.cabeza
+            for j in range(0, n+1):
+                if actualnova.siguiente!=None and actualnova.Piso.nombre > actualnova.siguiente.Piso.nombre:
+                    nodoJ = actualnova.Piso
+                    nodoJ_2 = actualnova.siguiente.Piso
+                    actualnova.Piso = nodoJ_2
+                    actualnova.siguiente.Piso = nodoJ
+                actualnova = actualnova.siguiente
+
     def menuPisos(self):
         actual = self.cabeza
         print("")
@@ -36,11 +54,20 @@ class listaPisos:
         print("|                          MENU PISOS                          |")
         #acá iran todos los pisos que cargue
         n=1
+        varOrdenUno = ""
         while actual != None:
+            varOrdenUno = varOrdenUno+","+actual.Piso.nombre
             print("  ",n,".",actual.Piso.nombre,".                     ")
             n = n+1
             actual=actual.siguiente
         print("   0 . Volver .")
+        # print(varOrdenUno)
+        # xvar = varOrdenUno.split(",")
+        # yvar = xvar.sort()
+        # print(yvar)
+        # sinEspacio = varOrdenUno.split(", ")
+        # sinEspacio.sort()
+        # print(sinEspacio)
 
     def mantenerMenuPisos(self):
         correcto = False
