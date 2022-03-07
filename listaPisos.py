@@ -61,13 +61,6 @@ class listaPisos:
             n = n+1
             actual=actual.siguiente
         print("   0 . Volver .")
-        # print(varOrdenUno)
-        # xvar = varOrdenUno.split(",")
-        # yvar = xvar.sort()
-        # print(yvar)
-        # sinEspacio = varOrdenUno.split(", ")
-        # sinEspacio.sort()
-        # print(sinEspacio)
 
     def mantenerMenuPisos(self):
         correcto = False
